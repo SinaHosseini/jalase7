@@ -11,7 +11,7 @@ def read_from_database():
     for line in f:
         result = line.split(",")
         my_dict = {"code": result[0], "name": result[1],
-                   "price": result[2], "count": result[3]}
+                   "price": result[2], "count": result[3].strip("\n")}
         PRODUCTS.append(my_dict)
 
     f.close()
