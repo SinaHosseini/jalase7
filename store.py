@@ -1,4 +1,5 @@
 import qrcode
+import tabulate
 
 PRODUCTS = []
 last_change = []
@@ -106,14 +107,35 @@ def search():
 
 
 def show_list():
-    print("code\t\tname\t\tprice\t\tcount")
-    for product in PRODUCTS:
-        print(product["code"], "\t\t", product["name"],
-              "\t\t", product["price"], "\t\t", product["count"])
+    print("code  name     price  count")
+    print(tabulate.tabulate(PRODUCTS))
 
 
 def buy():
-    pass
+    while True:
+        choice = input("enter product code or 2.exit: ")
+        if choice == "2":
+            break
+        else:
+            for product in PRODUCTS:
+                if choice != product["code"]:
+                    print("Product doesn't exist!")
+                    break
+                else:
+                    count_p = int(product["count"])
+                    user_input = int(input("enter product count: "))
+                    if user_input > count_p:
+                        print("There is not enough product!")
+                        break
+                    elif user_input <= count_p:
+                        p1 = product["price"]
+                        print("Buy successful\n")
+                        product["count"] = count_p - user_input
+                        break
+    pt = int(p1) * int(user_input)
+    fuct = {'price': p1, 'total': pt}
+    print(fuct)
+    print("Have a good day")
 
 
 def convert_qr():
